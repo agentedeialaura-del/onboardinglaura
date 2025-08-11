@@ -1,47 +1,509 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.65">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: #000000; min-height: 14.0px}
-    p.p3 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: #000000}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: #000000}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; background-color: #b3b3b3}
-    span.s3 {font: 12.0px Helvetica; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Onboarding de Clientes - Laura IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        /* --- Estilos Base e Dark Mode --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Fundo principal escuro */
+            color: #E5E7EB; /* Cor de texto principal clara */
+        }
+        .kanban-column {
+            min-width: 320px;
+            width: 320px;
+            background-color: #1F2937; /* Fundo das colunas */
+            border-radius: 0.75rem;
+        }
+        .kanban-card {
+            cursor: grab;
+            background-color: #374151; /* Fundo dos cards */
+            border: 1px solid #4B5563;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .kanban-card:hover {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+            border-color: #6366F1;
+        }
+        .kanban-card:active {
+            cursor: grabbing;
+        }
+        .dragging {
+            opacity: 0.6;
+            transform: rotate(3deg);
+        }
+        .drag-over {
+            background-color: rgba(99, 102, 241, 0.1);
+            border: 2px dashed #4F46E5;
+        }
+        .progress-bar-bg {
+            background-color: #4B5563;
+        }
+        .progress-bar-fg {
+            background-color: #4F46E5; /* Roxo/Indigo como cor de destaque */
+            transition: width 0.3s ease-in-out;
+        }
+        .modal-bg {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content-dark {
+             background-color: #1F2937;
+             border: 1px solid #4B5563;
+        }
+        .header-dark {
+            background-color: #1F2937;
+            border-bottom: 1px solid #374151;
+        }
+        .select-dark, .input-dark, .textarea-dark {
+            background-color: #374151;
+            border-color: #4B5563;
+            color: #E5E7EB;
+        }
+        .checkbox-dark:checked {
+            background-color: #4F46E5;
+            border-color: #4F46E5;
+        }
+        .add-task-btn {
+            background-color: transparent;
+            color: #9CA3AF;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .add-task-btn:hover {
+            background-color: #374151;
+            color: #E5E7EB;
+        }
+        .delete-task-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #9CA3AF;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s, color 0.2s, background-color 0.2s;
+        }
+        .kanban-card:hover .delete-task-btn {
+            opacity: 1;
+        }
+        .delete-task-btn:hover {
+            color: #F87171; /* red-400 */
+            background-color: #4B5563;
+        }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1"></span><br></p>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px Helvetica; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>SI Delivery</b></span></h1>
-<p class="p3"><span class="s1">Conveniência Santa Isabel</span></p>
-<p class="p4"><span class="s1">Carregando...</span></p>
-<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px Helvetica; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Nosso Cardápio</b></span></h2>
-<p class="p1"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1">Aguardando produtos...</span></p>
-<p class="p6"><span class="s2">Que tal adicionar?</span><span class="s3"> </span><span class="s2">Peça de Novo</span><span class="s3"> </span><span class="s2">Meus Pedidos</span><span class="s3"><span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"></span><br></p>
-<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px Helvetica; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Seu Pedido</b></span></h2>
-<p class="p3"><span class="s1">Seu carrinho está vazio.</span></p>
-<p class="p6"><span class="s2">Aplicar</span><span class="s3"><span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1">SubtotalR$ 0,00</span></p>
-<p class="p4"><span class="s1">Desconto- R$ 0,00</span></p>
-<p class="p4"><span class="s1">TotalR$ 0,00</span></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Helvetica; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Informações para Entrega</b></span></h3>
-<p class="p6"><span class="s2">Continuar</span><span class="s3"><span class="Apple-converted-space"> </span></span></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Helvetica; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Forma de Pagamento</b></span></h3>
-<p class="p6"><span class="s2">Pagar na Entrega</span><span class="s3"> </span><span class="s2">Pagar Online</span><span class="s3"><span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"></span><br></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Helvetica; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Pedido Recebido!</b></span></h3>
-<p class="p3"><span class="s1">Seu pedido foi enviado com sucesso. Acompanhe o status na aba "Meus Pedidos".</span></p>
-<p class="p6"><span class="s2">Fechar</span><span class="s3"><span class="Apple-converted-space"> </span></span></p>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="header-dark shadow-lg p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://laura-ia.com.br/wp-content/uploads/2025/06/claralogo-e1750978255121-1024x304.png" alt="Logo Laura IA" class="h-10">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Painel de Onboarding</h1>
+                    <p class="text-sm text-gray-400">Status de implementação dos projetos.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <label for="client-select" class="font-semibold text-gray-300">Cliente:</label>
+                <select id="client-select" class="select-dark p-2 border rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <!-- Opções de cliente serão preenchidas via JS -->
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Kanban Board -->
+    <main id="kanban-board" class="container mx-auto p-4 lg:p-6">
+        <div id="board-container" class="flex space-x-6 overflow-x-auto pb-4">
+            <!-- Colunas serão preenchidas via JS -->
+        </div>
+    </main>
+
+    <!-- Modal para Detalhes da Tarefa -->
+    <div id="task-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-bg">
+        <div class="modal-content-dark rounded-lg shadow-2xl w-11/12 max-w-2xl mx-auto transform transition-all" id="modal-content">
+            <!-- Conteúdo do Modal será preenchido via JS -->
+        </div>
+    </div>
+    
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Importar as funções necessárias do Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, doc, getDoc, updateDoc, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+
+        // --- CONFIGURAÇÃO DO FIREBASE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBQPw3ydmDQWJRlqHnmsNW5_Q1eQuRh9Mo", // <--- CHAVE DE API CORRETA INSERIDA
+            authDomain: "onboardinglaura.firebaseapp.com",
+            projectId: "onboardinglaura",
+            storageBucket: "onboardinglaura.appspot.com",
+            messagingSenderId: "692360233770",
+            appId: "1:692360233770:web:316d82e29e930a69765453"
+        };
+
+        // Inicializar o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // --- ESTADO DA APLICAÇÃO ---
+        let projects = []; // O array de projetos agora será preenchido pelo Firebase
+        let currentProjectId = null;
+        let unsubscribeListeners = []; // Para limpar os listeners ao trocar de projeto
+
+        // --- LÓGICA PRINCIPAL ---
+
+        // Função para carregar os projetos e iniciar a aplicação
+        async function loadProjects() {
+            const projectsCollection = collection(db, 'projects');
+            onSnapshot(projectsCollection, (snapshot) => {
+                projects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                if (projects.length > 0) {
+                    if (!currentProjectId || !projects.find(p => p.id === currentProjectId)) {
+                        currentProjectId = projects[0].id;
+                    }
+                    renderClientSelector();
+                    loadAndRenderBoard();
+                } else {
+                    document.getElementById('board-container').innerHTML = '<p class="text-center text-gray-400">Nenhum projeto encontrado. Adicione um projeto no seu banco de dados Firestore.</p>';
+                }
+            }, (error) => {
+                console.error("Erro ao carregar projetos: ", error);
+                document.getElementById('board-container').innerHTML = `<p class="text-center text-red-400">Erro ao carregar projetos: ${error.message}</p>`;
+            });
+        }
+        
+        // Função para carregar e renderizar o painel do projeto atual
+        function loadAndRenderBoard() {
+            if (!currentProjectId) return;
+
+            // Limpa listeners antigos para evitar renderizações múltiplas
+            unsubscribeListeners.forEach(unsub => unsub());
+            unsubscribeListeners = [];
+
+            const project = projects.find(p => p.id === currentProjectId);
+            project.columns = []; // Reseta as colunas para recarregar
+            
+            const columnsCollectionRef = collection(db, `projects/${currentProjectId}/columns`);
+            const columnOrder = ['todo', 'inprogress', 'validation', 'training', 'done'];
+
+            // Listener para a coleção de colunas
+            const columnsUnsub = onSnapshot(columnsCollectionRef, (columnsSnapshot) => {
+                const columnsData = columnsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                columnsData.sort((a, b) => columnOrder.indexOf(a.id) - columnOrder.indexOf(b.id));
+                project.columns = columnsData;
+
+                // Para cada coluna, cria um listener para suas tarefas
+                project.columns.forEach((column, index) => {
+                    const tasksCollectionRef = collection(db, `projects/${currentProjectId}/columns/${column.id}/tasks`);
+                    const tasksUnsub = onSnapshot(tasksCollectionRef, (tasksSnapshot) => {
+                        const tasks = tasksSnapshot.docs.map(taskDoc => ({ id: taskDoc.id, ...taskDoc.data() }));
+                        project.columns[index].tasks = tasks;
+                        renderBoard(); // Re-renderiza o painel sempre que as tarefas mudam
+                    });
+                    unsubscribeListeners.push(tasksUnsub);
+                });
+
+                // Se uma coluna não tiver tarefas, ainda precisamos renderizar
+                if (columnsSnapshot.docs.length > 0) {
+                    renderBoard();
+                }
+            });
+            unsubscribeListeners.push(columnsUnsub);
+        }
+
+        // --- FUNÇÕES DE RENDERIZAÇÃO (UI) ---
+
+        function renderBoard() {
+            const project = projects.find(p => p.id === currentProjectId);
+            if (!project || !project.columns) return;
+
+            const boardContainer = document.getElementById('board-container');
+            boardContainer.innerHTML = ''; 
+
+            project.columns.forEach(column => {
+                const columnEl = document.createElement('div');
+                columnEl.className = 'kanban-column p-4 flex flex-col';
+                columnEl.dataset.columnId = column.id;
+
+                columnEl.innerHTML = `
+                    <h2 class="text-lg font-bold mb-4 text-gray-200 tracking-wider">${column.title}</h2>
+                    <div class="task-list flex-grow space-y-4" data-column-id="${column.id}"></div>
+                    <button class="add-task-btn w-full text-left p-2 mt-4 rounded-md font-semibold">
+                        <i class="fas fa-plus mr-2"></i> Adicionar Tarefa
+                    </button>
+                `;
+
+                const taskListEl = columnEl.querySelector('.task-list');
+                if (column.tasks) {
+                    column.tasks.forEach(task => {
+                        const taskEl = createTaskElement(task);
+                        taskListEl.appendChild(taskEl);
+                    });
+                }
+                
+                columnEl.querySelector('.add-task-btn').addEventListener('click', () => openTaskModal(null, column.id));
+                boardContainer.appendChild(columnEl);
+            });
+
+            addDragAndDropListeners();
+        }
+
+        function createTaskElement(task) {
+            const taskEl = document.createElement('div');
+            taskEl.className = 'kanban-card p-4 rounded-lg shadow-lg';
+            taskEl.draggable = true;
+            taskEl.dataset.taskId = task.id;
+
+            const progress = calculateProgress(task.checklist);
+
+            taskEl.innerHTML = `
+                <button class="delete-task-btn" title="Remover Tarefa">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <div class="pr-6">
+                    <h3 class="font-semibold text-gray-100">${task.title}</h3>
+                    <p class="text-sm text-gray-400 mt-2">${task.description ? task.description.substring(0, 70) : ''}...</p>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-1">
+                        <span>Progresso</span>
+                        <span>${progress.completedCount}/${progress.totalCount}</span>
+                    </div>
+                    <div class="progress-bar-bg w-full h-2 rounded-full overflow-hidden">
+                        <div class="progress-bar-fg h-full" style="width: ${progress.percentage}%;"></div>
+                    </div>
+                </div>
+            `;
+            
+            taskEl.addEventListener('click', (e) => {
+                if (!e.target.closest('.delete-task-btn')) {
+                     openTaskModal(task.id);
+                }
+            });
+
+            taskEl.querySelector('.delete-task-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleRemoveTask(task.id);
+            });
+
+            return taskEl;
+        }
+
+        function renderClientSelector() {
+            const selectEl = document.getElementById('client-select');
+            selectEl.innerHTML = '';
+            projects.forEach(project => {
+                const option = document.createElement('option');
+                option.value = project.id;
+                option.textContent = project.name;
+                if (project.id === currentProjectId) {
+                    option.selected = true;
+                }
+                selectEl.appendChild(option);
+            });
+        }
+        
+        // --- LÓGICA DO MODAL ---
+
+        async function openTaskModal(taskId, columnId = null) {
+            let task = null;
+            let isNewTask = taskId === null;
+
+            if (!isNewTask) {
+                task = await findTaskData(taskId);
+            }
+
+            const modal = document.getElementById('task-modal');
+            const modalContent = document.getElementById('modal-content');
+
+            const title = isNewTask ? '' : task.title;
+            const description = isNewTask ? '' : task.description;
+            const checklist = isNewTask ? [] : (task.checklist || []);
+            
+            let checklistHTML = checklist.map((item, index) => `
+                <label class="flex items-center p-3 hover:bg-gray-700/50 rounded-md cursor-pointer transition-colors">
+                    <input type="checkbox" class="checkbox-dark h-5 w-5 rounded border-gray-500 text-indigo-500 focus:ring-indigo-400 bg-gray-600" data-task-id="${taskId}" data-checklist-index="${index}" ${item.completed ? 'checked' : ''}>
+                    <span class="ml-3 text-gray-300 ${item.completed ? 'line-through text-gray-500' : ''}">${item.text}</span>
+                </label>
+            `).join('');
+
+            modalContent.innerHTML = `
+                <form id="task-form" class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="text-2xl font-bold text-white">${isNewTask ? 'Nova Tarefa' : 'Editar Tarefa'}</h2>
+                        <button type="button" id="close-modal-btn" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+                    </div>
+                    <div class="mb-4">
+                        <label for="task-title" class="block text-sm font-medium text-gray-300 mb-1">Título</label>
+                        <input type="text" id="task-title" value="${title}" class="input-dark w-full p-2 rounded-md" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="task-description" class="block text-sm font-medium text-gray-300 mb-1">Descrição</label>
+                        <textarea id="task-description" rows="3" class="textarea-dark w-full p-2 rounded-md">${description || ''}</textarea>
+                    </div>
+                    ${!isNewTask ? `<h3 class="font-semibold mb-2 text-gray-200">Checklist</h3><div class="space-y-1">${checklistHTML}</div>` : ''}
+                    <div class="mt-6 flex justify-end">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition-colors">${isNewTask ? 'Criar Tarefa' : 'Salvar'}</button>
+                    </div>
+                </form>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            document.getElementById('close-modal-btn').addEventListener('click', closeTaskModal);
+            modal.addEventListener('click', (e) => { if (e.target.id === 'task-modal') closeTaskModal(); });
+            document.getElementById('task-form').addEventListener('submit', (e) => { e.preventDefault(); handleSaveTask(taskId, columnId); });
+
+            if (!isNewTask) {
+                modalContent.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', handleChecklistChange);
+                });
+            }
+        }
+
+        function closeTaskModal() {
+            document.getElementById('task-modal').classList.add('hidden');
+        }
+
+        // --- MANIPULAÇÃO DE DADOS (Firestore) ---
+        
+        async function handleSaveTask(taskId, columnId) {
+            const title = document.getElementById('task-title').value;
+            const description = document.getElementById('task-description').value;
+            if (!title) return alert('O título é obrigatório.');
+
+            if (taskId) { // Editar
+                const taskRef = await findTaskRef(taskId);
+                if(taskRef) await updateDoc(taskRef, { title, description });
+            } else { // Criar
+                const tasksCollectionRef = collection(db, `projects/${currentProjectId}/columns/${columnId}/tasks`);
+                await addDoc(tasksCollectionRef, { title, description, checklist: [] });
+            }
+            closeTaskModal();
+        }
+
+        async function handleRemoveTask(taskId) {
+            if (!confirm('Tem certeza que deseja remover esta tarefa?')) return;
+            const taskRef = await findTaskRef(taskId);
+            if(taskRef) await deleteDoc(taskRef);
+        }
+
+        async function handleChecklistChange(event) {
+            const { taskId, checklistIndex } = event.target.dataset;
+            const isChecked = event.target.checked;
+            
+            const taskRef = await findTaskRef(taskId);
+            if(taskRef) {
+                const taskSnap = await getDoc(taskRef);
+                const taskData = taskSnap.data();
+                const updatedChecklist = [...(taskData.checklist || [])];
+                updatedChecklist[checklistIndex].completed = isChecked;
+                await updateDoc(taskRef, { checklist: updatedChecklist });
+            }
+        }
+
+        function handleClientChange(event) {
+            currentProjectId = event.target.value;
+            loadAndRenderBoard();
+        }
+
+        function calculateProgress(checklist) {
+            if (!checklist || checklist.length === 0) return { totalCount: 0, completedCount: 0, percentage: 100 };
+            const totalCount = checklist.length;
+            const completedCount = checklist.filter(item => item.completed).length;
+            const percentage = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+            return { totalCount, completedCount, percentage };
+        }
+        
+        async function findTaskRef(taskId) {
+            if (!currentProjectId) return null;
+            const project = projects.find(p => p.id === currentProjectId);
+            if (!project || !project.columns) return null;
+
+            for (const column of project.columns) {
+                 if(column.tasks) {
+                    const task = column.tasks.find(t => t.id === taskId);
+                    if (task) {
+                        return doc(db, `projects/${currentProjectId}/columns/${column.id}/tasks`, taskId);
+                    }
+                 }
+            }
+            return null;
+        }
+
+        async function findTaskData(taskId) {
+            const ref = await findTaskRef(taskId);
+            if (!ref) return null;
+            const docSnap = await getDoc(ref);
+            return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : null;
+        }
+
+        // --- LÓGICA DE DRAG AND DROP ---
+
+        function addDragAndDropListeners() {
+            const cards = document.querySelectorAll('.kanban-card');
+            const columns = document.querySelectorAll('.task-list');
+
+            cards.forEach(card => {
+                card.addEventListener('dragstart', () => card.classList.add('dragging'));
+                card.addEventListener('dragend', () => card.classList.remove('dragging'));
+            });
+
+            columns.forEach(column => {
+                column.addEventListener('dragover', e => { e.preventDefault(); column.classList.add('drag-over'); });
+                column.addEventListener('dragleave', () => column.classList.remove('drag-over'));
+                column.addEventListener('drop', e => {
+                    e.preventDefault();
+                    column.classList.remove('drag-over');
+                    const draggingCard = document.querySelector('.dragging');
+                    if (draggingCard) {
+                        moveTask(draggingCard.dataset.taskId, column.dataset.columnId);
+                    }
+                });
+            });
+        }
+        
+        async function moveTask(taskId, targetColumnId) {
+            const taskRef = await findTaskRef(taskId);
+            if(!taskRef) return;
+            
+            const taskSnap = await getDoc(taskRef);
+            if(!taskSnap.exists()) return;
+            const taskData = taskSnap.data();
+
+            const targetCollectionRef = collection(db, `projects/${currentProjectId}/columns/${targetColumnId}/tasks`);
+            await addDoc(targetCollectionRef, taskData);
+            await deleteDoc(taskRef);
+        }
+
+        // --- INICIALIZAÇÃO ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await signInAnonymously(auth);
+                console.log("Usuário autenticado anonimamente com sucesso.");
+                loadProjects();
+                document.getElementById('client-select').addEventListener('change', handleClientChange);
+            } catch (error) {
+                console.error("Erro na autenticação anônima:", error);
+                document.getElementById('board-container').innerHTML = `<p class="text-center text-red-400">Falha na autenticação. Verifique as regras de segurança do seu Firebase e se a autenticação anônima está habilitada. Erro: ${error.message}</p>`;
+            }
+        });
+    </script>
 </body>
 </html>
