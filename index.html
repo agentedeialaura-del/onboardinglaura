@@ -73,13 +73,37 @@
         // --- ESTRUTURA DE DADOS INICIAL ---
         const initialData = [
             {
-                id: 'proj-' + Date.now(),
-                name: 'Resenha Barbearia (Exemplo)',
+                id: 'proj-1723402080000',
+                name: 'Resenha Barbearia',
                 columns: [
                     { id: 'todo', title: '📋 A Fazer / Briefing', tasks: [
-                        { id: 'task-1', title: '[CLIENTE] Preenchimento do Briefing', description: 'Coletar todas as informações essenciais.', checklist: [{ text: 'Enviar questionário', completed: true }] }
+                        { id: 'task-rb1', title: 'Reunião de Kick-off e Briefing', description: 'Alinhamento inicial de expectativas e coleta de informações macro.', checklist: [{ text: 'Reunião agendada', completed: true }, { text: 'Briefing preenchido', completed: false }] }
                     ]},
-                    { id: 'inprogress', title: '⚙️ Em Andamento', tasks: [] },
+                    { id: 'inprogress', title: '⚙️ Em Andamento', tasks: [
+                        { id: 'task-rb2', title: 'Criação da Conta Google', description: 'Setup da conta do Google para integração com a agenda.', checklist: [{ text: 'Criar e-mail', completed: true }, { text: 'Configurar agenda', completed: false }] },
+                        { id: 'task-rb3', title: 'Configuração Técnica da IA', description: 'Passagem do acesso para o cliente conectar o número e bloqueio de grupos.', checklist: [{ text: 'Criar instância da Laura', completed: true }, { text: 'Passar acesso ao cliente', completed: true }, { text: 'Configurar bloqueio de grupos', completed: false }] },
+                        { id: 'task-rb4', title: 'Criação das Campanhas', description: 'Desenvolvimento das campanhas de reativação e fidelidade.', checklist: [] }
+                    ]},
+                    { id: 'validation', title: '🤝 Em Validação', tasks: [] },
+                    { id: 'training', title: '🚀 Treinamento / Go-Live', tasks: [
+                        { id: 'task-rb5', title: 'Ativação das Campanhas', description: 'Ligar as automações de marketing para os clientes.', checklist: [] }
+                    ]},
+                    { id: 'done', title: '✅ Concluído', tasks: [
+                        { id: 'task-rb6', title: 'Reunião de Acompanhamento', description: 'Análise da primeira semana de funcionamento.', checklist: [] }
+                    ]}
+                ]
+            },
+            {
+                id: 'proj-1723402080001',
+                name: 'Conveniência Santa Isabel',
+                columns: [
+                    { id: 'todo', title: '📋 A Fazer / Briefing', tasks: [
+                        { id: 'task-csi1', title: '[CLIENTE] Envio do Documento Base', description: 'Receber o documento com a lista de produtos e informações para o e-commerce.', checklist: [{ text: 'Documento recebido', completed: true }] }
+                    ]},
+                    { id: 'inprogress', title: '⚙️ Em Andamento', tasks: [
+                        { id: 'task-csi2', title: 'Criação de Listas de Clientes', description: 'Importar e segmentar a base de clientes para as campanhas.', checklist: [] },
+                        { id: 'task-csi3', title: 'Desenvolvimento das Campanhas', description: 'Criar as campanhas de delivery e promoções relâmpago.', checklist: [] }
+                    ]},
                     { id: 'validation', title: '🤝 Em Validação', tasks: [] },
                     { id: 'training', title: '🚀 Treinamento / Go-Live', tasks: [] },
                     { id: 'done', title: '✅ Concluído', tasks: [] }
